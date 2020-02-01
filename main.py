@@ -14,7 +14,10 @@
 
 # [START gae_python37_app]
 from flask import Flask
-
+from flask import jsonify
+import json
+from difflib import get_close_matches
+data = json.load(open("data.json"))
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
@@ -24,12 +27,22 @@ app = Flask(__name__)
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
-    return 'Hello World!!!'
+    return 'This is a dictionary application. Send get request to server with the required word. \n Example: localhost/test will return the meaning of the word test'
 
-@app.route('/<user>')
-def anshu(user):
-    """Return a friendly HTTP greeting."""
-    return 'Hello ' + user + '!'
+@app.route('/<word>')
+def search(word):
+    word = word.lower()
+    if word in data:
+        return jsonify(data[word])
+    elif word.title() in data:
+        return jsonify(data[word.title()])
+    elif word.upper() in data:
+        return jsonify(data[word.upper()])
+    elif len(get_close_matches(word, data.keys())) > 0:
+        return "Did you mean " + get_close_matches(word, data.keys())[0] + " instead?"
+    else:
+        return "Word doesn't exist"
+
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
