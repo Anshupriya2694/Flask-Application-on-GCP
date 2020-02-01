@@ -39,7 +39,7 @@ def search(word):
     elif word.upper() in data:
         return jsonify(data[word.upper()])
     elif len(get_close_matches(word, data.keys())) > 0:
-        return "Did you mean " + get_close_matches(word, data.keys())[0] + " instead?"
+        return "Did you mean " + get_close_matches(word, data.keys())[0] + " instead???"
     else:
         return "Word doesn't exist"
 
