@@ -33,7 +33,7 @@ def hello():
 def search(word):
     word = word.lower()
     if word in data:
-        return jsoniy(data[word])
+        return jsonify(data[word])
     elif word.title() in data:
         return jsonify(data[word.title()])
     elif word.upper() in data:
