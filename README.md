@@ -1,4 +1,4 @@
-# ECE590_Project1
+# Flask Application on GCP
 
 The first project requires the implementation of Continuous Delivery for a Flask Application on GCP.
 The service is deployed on an app engine, and can accessed at following URL: https://ece590.appspot.com/
